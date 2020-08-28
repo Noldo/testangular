@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {TextService} from '../shared/text.service';
+import MediumEditor from 'medium-editor';
 
 @Component({
   selector: 'app-text',
@@ -7,9 +8,16 @@ import {TextService} from '../shared/text.service';
   styleUrls: ['./text.component.sass']
 })
 
-export class TextComponent implements OnInit {
+export class TextComponent implements OnInit, AfterViewInit {
+
+  @ViewChild('media') media: ElementRef;
 
   constructor(public textService: TextService) {
+  }
+
+  ngAfterViewInit() {
+    const edit = this.media.nativeElement;
+    const editor = new MediumEditor(edit);
   }
 
   ngOnInit(): void {
